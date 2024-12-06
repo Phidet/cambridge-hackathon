@@ -82,7 +82,7 @@ In most cases, you will be playing the audio returned from our servers directly 
 
 Clone the repository:  
 ```bash
-git clone https://github.com/neuphonic/ucl_hackathon.git
+git clone https://github.com/neuphonic/UCL-Hackathon.git
 cd UCL-Hackathon
 ```
 
