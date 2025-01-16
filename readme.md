@@ -1,8 +1,8 @@
-# Conversational AI Hackathon @ UCL 🎙️🤖
-## 6th December 2024
-Welcome to the **Conversational AI Hackathon**, hosted at UCL! 🚀 This event is your opportunity to dive into the exciting world of Conversational AI and build real-time, voice-driven applications that tackle innovative challenges.
+# Conversational AI Hackathon @ Cambridge 🎙️🤖
+## 20th January 2025
+Welcome to the **Conversational AI Hackathon**, hosted at Cambridge! 🚀 This event is your opportunity to dive into the exciting world of Conversational AI and build real-time, voice-driven applications that tackle innovative challenges.
 
-Email {sohaib, jiameng, adnan, lohith, emma}@neuphonic.com if you need any help!
+Email {sohaib, jiameng, adnan, lohith, emma, rachel}@neuphonic.com if you need any help!
 
 ---
 
@@ -36,16 +36,21 @@ Your project will be judged based on the following criteria:
 
 ## Table of Contents
 
-1. [Introduction](#introduction)  
-2. [Setup](#setup)  
-3. [Project Structure](#project-structure)  
-4. [Code Overview](#code-overview)  
-   - [Text-to-Speech (TTS)](#text-to-speech)  
-   - [Speech-to-Speech (STS)](#speech-to-speech)  
-5. [How to Run](#how-to-run)  
-6. [Challenges & Ideas](#challenges--ideas)  
-7. [Contribution Guidelines](#contribution-guidelines)  
-8. [License](#license)  
+- [Conversational AI Hackathon @ Cambridge 🎙️🤖](#conversational-ai-hackathon--cambridge-️)
+  - [20th January 2025](#20th-january-2025)
+  - [Challenge](#challenge)
+  - [Judging Criteria](#judging-criteria)
+  - [Table of Contents](#table-of-contents)
+  - [Introduction](#introduction)
+  - [Setup](#setup)
+    - [Project Structure](#project-structure)
+    - [Prerequisites](#prerequisites)
+    - [Getting Started](#getting-started)
+  - [Challenges \& Ideas](#challenges--ideas)
+    - [Challenges](#challenges)
+    - [Project Ideas](#project-ideas)
+  - [Contribution Guidelines](#contribution-guidelines)
+  - [License](#license)
 
 
 ---
@@ -62,31 +67,29 @@ In what follows, we'll show you how to get started and use our software!
 
 ## Setup
 
-### Prerequisites
-
-You will need to be running a minimum of Python 3.10+ 
-
-You'll also need to get an API Key, which you can get from [beta.neuphonic.com](https://beta.neuphonic.com).
-
-
-### MacOS
-
-If you're on MacOS, install `brew` at [https://brew.sh/](https://brew.sh/) if you don't have it already.
-
-In most cases, you will be playing the audio returned from our servers directly on your device.
-
-> :warning: Mac users encountering a `'portaudio.h' file not found` error can resolve it by running
-> `brew install portaudio`.
-
-### Installation
-
-Clone the repository:  
+### Project Structure
 ```bash
-git clone https://github.com/neuphonic/UCL-Hackathon.git
-cd UCL-Hackathon
+├── Quickstart.ipynb                # JupyterNotebook going over various helpful examples
+├── README.md                       # Documentation
+├── LICENSE                         # MIT License
+└── requirements.txt                # Dependencies
 ```
 
-Create a virtual environment and install the dependencies:
+### Prerequisites
+
+You will need to be running a minimum of Python 3.10+.
+
+### Getting Started
+
+Start by cloning this repository. 
+```bash
+git clone https://github.com/neuphonic/cambridge-hackathon.git
+cd cambridge-hackathon
+```
+
+Set up a virtual environment and install the necessary dependencies.
+There are multiple ways to create a virtual environment (e.g., conda, venv, etc.), so feel free to use your preferred method.
+Here is an example using Python's built-in venv module:
 
 ```bash
 python -m venv venv
@@ -94,61 +97,19 @@ source venv/bin/activate
 pip install -r requirements.txt
 ```
 
----
+Then head over to the [https://docs.neuphonic.com/quickstart](https://docs.neuphonic.com/quickstart) 
+section of our docs for instructions on how to get started where we demonstrate
+1. How to get your API key.
+2. How to run some example applications.
 
-### Project Structure
-```bash
-├── hackathon_demo_ucl.ipynb        # JupyterNotebook going over various helpful examples
-├── neuphonic_texttospeech.py       # TTS module
-├── neuphonic_speech_to_speech.py   # Main integration program
-├── README.md                       # Documentation
-├── LICENSE                         # MIT License
-└── requirements.txt                # Dependencies
-```
+> :warning: Mac users may encounter a `'portaudio.h' file not found` when trying to play audio or install
+> `pyaudio`. You can resolve this error by running `brew install portaudio`. 
+> Install `brew` at [https://brew.sh/](https://brew.sh/) if you don't have it already.
 
----
+Additionally, you can explore the `Quickstart.ipynb` Jupyter notebook, which guides you through 
+performing text-to-speech using the Neuphonic API and utilizing our Agents (Chatbot) feature.
 
-## Getting started
-
-Try out the ipython notebook `hackathon_demo_ucl.ipynb` in your IDE!
-
-For more detailed documentation and examples, please refer to the `pyneuphonic` SDK README available 
-at [pyneuphonic GitHub repository](https://github.com/neuphonic/pyneuphonic).
-
-## Code Overview
-
-### Text-to-Speech (TTS)
-
-The **Text-to-Speech** module leverages Neuphonic’s API for generating high-quality audio.
-
-**Key Functionality:**  
-- `neuphonic_tts(input_text)`: Converts input text into speech and plays it.
-
-Test this out with
-
-```python
-python neuphonic_texttospeech.py
-```
-
-
-
-### Speech-To-Speech (STS)
-   *** NOTE: The speech recognition is quite sensitive, so you might need to be in a quiet area (and using headphones) to make this work fluidly, otherwise it can pick up background noise.
-
-We've also created a file called neuphonic_speech_to_speech.py which allows you to talk to a module in a speech to speech fashion. It's connected to a Deepgram ASR, OpenAI LLM, and then the Neuphonic TTS. By installing pyneuphonic, you install all the depencies required to get it up and running.
-
-1. Speak into the microphone, and the system will transcribe your speech in real time.
-2. The transcribed text is sent to the LLM to generate a response.
-3. The response is converted to speech using the TTS module and played back to you.
-4. Repeat the process to continue the conversation.
-
-
-Test this out with
-
-```bash
-python neuphonic_speech_to_speech.py
-```
-
+Explore the rest of our documentation to see what other features we have!
 
 ---
 
