@@ -70,9 +70,9 @@ In what follows, we'll show you how to get started and use our software!
 ### Project Structure
 ```bash
 ├── react-hook                      # Contains a react hook impl, if required
+├── LICENSE                         # MIT License
 ├── Quickstart.ipynb                # JupyterNotebook going over various helpful examples
 ├── README.md                       # Documentation
-├── LICENSE                         # MIT License
 └── requirements.txt                # Dependencies
 ```
 
