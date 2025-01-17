@@ -94,9 +94,17 @@ Set up a virtual environment and install the necessary dependencies.
 There are multiple ways to create a virtual environment (e.g., conda, venv, etc.), so feel free to use your preferred method.
 Here is an example using Python's built-in venv module:
 
+**Linux/Mac**
 ```bash
-python -m venv venv
-source venv/bin/activate
+python -m venv neuphonic_venv
+source neuphonic_venv\/bin/activate 
+pip install -r requirements.txt
+```
+
+**Windows**
+```cmd
+python -m venv neuphonic_venv
+neuphonic_venv\Scripts\activate
 pip install -r requirements.txt
 ```
 
