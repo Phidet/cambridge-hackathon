@@ -2,7 +2,9 @@
 ## 20th January 2025
 Welcome to the **Conversational AI Hackathon**, hosted at Cambridge! 🚀 This event is your opportunity to dive into the exciting world of Conversational AI and build real-time, voice-driven applications that tackle innovative challenges.
 
-Email {sohaib, jiameng, adnan, lohith, emma, rachel}@neuphonic.com if you need any help!
+Email {jiameng, adnan, johanna, lohith, emma, rachel}@neuphonic.com if you need any help!
+
+Documentation for our API can be found at [https://docs.neuphonic.com/quickstart](https://docs.neuphonic.com/quickstart)
 
 ---
 
