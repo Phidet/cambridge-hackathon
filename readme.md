@@ -97,7 +97,7 @@ Here is an example using Python's built-in venv module:
 **Linux/Mac**
 ```bash
 python -m venv neuphonic_venv
-source neuphonic_venv\/bin/activate 
+source neuphonic_venv/bin/activate 
 pip install -r requirements.txt
 ```
 
