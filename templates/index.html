@@ -27,6 +27,8 @@
         const peer = new Peer();
         const ws = new WebSocket('wss://' + window.location.host + '/audio'); // Use wss:// for secure WebSocket
 
+        let conn; // Ensure conn is defined in the outer scope
+
         peer.on('open', id => {
             peerIdSpan.textContent = id;
         });
@@ -42,7 +44,6 @@
                 });
             });
 
-        let conn;
         peer.on('connection', connection => {
             conn = connection;
             conn.on('data', data => {
@@ -50,6 +51,17 @@
                 document.body.insertAdjacentHTML('beforeend', `<p>${data}</p>`);
             });
             onConnectionEstablished();
+
+            // Move the conn.on('data', ...) block here
+            conn.on('data', data => {
+                const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+                audioContext.decodeAudioData(data, buffer => {
+                    const source = audioContext.createBufferSource();
+                    source.buffer = buffer;
+                    source.connect(audioContext.destination);
+                    source.start(0);
+                });
+            });
         });
 
         function connectToPeer() {
@@ -67,6 +79,17 @@
                         document.body.insertAdjacentHTML('beforeend', `<p>${data}</p>`);
                     });
                     onConnectionEstablished();
+
+                    // Move the conn.on('data', ...) block here
+                    conn.on('data', data => {
+                        const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+                        audioContext.decodeAudioData(data, buffer => {
+                            const source = audioContext.createBufferSource();
+                            source.buffer = buffer;
+                            source.connect(audioContext.destination);
+                            source.start(0);
+                        });
+                    });
                 });
             }
         }
@@ -101,43 +124,39 @@
         }
 
         function stopRecording() {
-            mediaRecorder.stop();
-            mediaRecorder.onstop = () => {
-                const audioBlob = new Blob(audioChunks, { type: 'audio/wav' });
-                audioChunks = [];
-                const reader = new FileReader();
-                reader.readAsArrayBuffer(audioBlob);
-                reader.onloadend = () => {
-                    const buffer = reader.result;
-                    if (buffer.byteLength % 4 !== 0) {
-                        const padding = new ArrayBuffer(4 - (buffer.byteLength % 4));
-                        const combined = new Uint8Array(buffer.byteLength + padding.byteLength);
-                        combined.set(new Uint8Array(buffer), 0);
-                        combined.set(new Uint8Array(padding), buffer.byteLength);
-                        ws.send(combined.buffer);
-                    } else {
-                        ws.send(buffer);
-                    }
+            if (mediaRecorder) {
+                mediaRecorder.stop();
+                mediaRecorder.onstop = () => {
+                    const audioBlob = new Blob(audioChunks, { type: 'audio/wav' });
+                    audioChunks = [];
+                    const reader = new FileReader();
+                    reader.readAsArrayBuffer(audioBlob);
+                    reader.onloadend = () => {
+                        const buffer = reader.result;
+                        if (buffer.byteLength % 4 !== 0) {
+                            const padding = new ArrayBuffer(4 - (buffer.byteLength % 4));
+                            const combined = new Uint8Array(buffer.byteLength + padding.byteLength);
+                            combined.set(new Uint8Array(buffer), 0);
+                            combined.set(new Uint8Array(padding), buffer.byteLength);
+                            ws.send(combined.buffer);
+                        } else {
+                            ws.send(buffer);
+                        }
+                    };
                 };
-            };
+            } else {
+                console.error('mediaRecorder is not defined');
+            }
         }
 
         ws.onmessage = event => {
             const audioData = event.data;
             if (conn && conn.open) {
                 conn.send(audioData);
+            } else {
+                console.error('conn is not defined or not open');
             }
         };
-
-        conn.on('data', data => {
-            const audioContext = new (window.AudioContext || window.webkitAudioContext)();
-            audioContext.decodeAudioData(data, buffer => {
-                const source = audioContext.createBufferSource();
-                source.buffer = buffer;
-                source.connect(audioContext.destination);
-                source.start(0);
-            });
-        });
     </script>
 </body>
 </html>
