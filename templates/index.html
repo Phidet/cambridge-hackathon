@@ -25,7 +25,7 @@
         const recordButton = document.getElementById('recordButton');
         const connectionDiv = document.getElementById('connectionDiv');
         const peer = new Peer();
-        const ws = new WebSocket('ws://' + window.location.host + '/audio');
+        const ws = new WebSocket('wss://' + window.location.host + '/audio'); // Use wss:// for secure WebSocket
 
         peer.on('open', id => {
             peerIdSpan.textContent = id;
@@ -65,7 +65,6 @@
                     conn.on('data', data => {
                         console.log('Received', data);
                         document.body.insertAdjacentHTML('beforeend', `<p>${data}</p>`);
-                        playAudio(data);
                     });
                     onConnectionEstablished();
                 });
@@ -130,16 +129,15 @@
             }
         };
 
-        function playAudio(data) {
+        conn.on('data', data => {
             const audioContext = new (window.AudioContext || window.webkitAudioContext)();
-            const arrayBuffer = data instanceof ArrayBuffer ? data : data.buffer;
-            audioContext.decodeAudioData(arrayBuffer, buffer => {
+            audioContext.decodeAudioData(data, buffer => {
                 const source = audioContext.createBufferSource();
                 source.buffer = buffer;
                 source.connect(audioContext.destination);
                 source.start(0);
             });
-        }
+        });
     </script>
 </body>
 </html>
