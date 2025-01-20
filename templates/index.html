@@ -65,6 +65,7 @@
                     conn.on('data', data => {
                         console.log('Received', data);
                         document.body.insertAdjacentHTML('beforeend', `<p>${data}</p>`);
+                        playAudio(data);
                     });
                     onConnectionEstablished();
                 });
@@ -129,15 +130,16 @@
             }
         };
 
-        conn.on('data', data => {
+        function playAudio(data) {
             const audioContext = new (window.AudioContext || window.webkitAudioContext)();
-            audioContext.decodeAudioData(data, buffer => {
+            const arrayBuffer = data instanceof ArrayBuffer ? data : data.buffer;
+            audioContext.decodeAudioData(arrayBuffer, buffer => {
                 const source = audioContext.createBufferSource();
                 source.buffer = buffer;
                 source.connect(audioContext.destination);
                 source.start(0);
             });
-        });
+        }
     </script>
 </body>
 </html>
